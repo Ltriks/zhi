@@ -28,6 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function owns(Question $model) //Model $model doesn't work
+    {
+        return $this->id == $model->user_id;
+    }
     public function sendPasswordResetNotification($token)
     {
         $data = [
