@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
-use App\Question;
-use App\Topic;
+use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
 use Auth;
 
 class QuestionController extends Controller
 {
-    public function __construct()
+    protected $questionRepository;
+
+    public function __construct(QuestionRepository $questionRepository)
     {
         $this->middleware('auth')->except(['index','show']);
+        $this->questionRepository = $questionRepository;
     }
     /**
      * Display a listing of the resource.
@@ -52,13 +54,13 @@ class QuestionController extends Controller
 //            'title.min' => '标题不能少于6个字符',
 //        ];
 //        $this->validate($request,$rules,$message);
-        $topics = $this->normalizeTopic($request->get('topics'));
+        $topics = $this->questionRepository->normalizeTopic($request->get('topics'));
         $data = [
             'title' => $request->get('title'),
             'body' => $request->get('body'),
             'user_id' => Auth::id(),
         ];
-        $question = Question::create($data);
+        $question = $this->questionRepository->create($data);
 
         $question->topics()->attach($topics);
         return redirect()->route('question.show',[$question->id]);
@@ -72,7 +74,7 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question = Question::where('id',$id)->with('topics')->first();
+        $question = $this->questionRepository->byIdWithTopics($id);
 
         return view('questions.show',compact('question'));;
     }
@@ -111,15 +113,4 @@ class QuestionController extends Controller
         //
     }
 
-    private function normalizeTopic(array $topics)
-    {
-        return collect($topics)->map(function ($topic){
-            if (is_numeric($topic)){
-                Topic::find($topic)->increment('questions_count');
-                return (int) $topic;
-            }
-            $newTopic = Topic::create(['name' => $topic,'questions_count' => 1]);
-            return $newTopic->id;
-        })->toArray();
-    }
 }
