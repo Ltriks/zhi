@@ -17,6 +17,11 @@
                     <div class="actions">
                         @if(Auth::check() && Auth::user()->owns($question))
                             <span class="edit"><a href="/questions/{{ $question->id }}/edit">Edit</a></span>
+                            <form action="/questions/{{$question->id}}" method="POST" class="delete-form">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button class="button is-naked delete-button">Del</button>
+                            </form>
                         @endif
                     </div>
                 </div>
