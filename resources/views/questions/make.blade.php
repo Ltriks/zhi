@@ -28,7 +28,7 @@
 
                             <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
                                 <label for="body">body</label>
-                                <script id="container" name="body" type="text/plain" style="height: 200px">
+                                <script id="container" name="body" type="text/plain" style="height:200px;" >
                                     {!!  old('body') !!}
                                 </script>
                                 @if ($errors->has('body'))
@@ -45,7 +45,6 @@
         </div>
     </div>
     @section('js')
-    <!-- 实例化编辑器 -->
     <script type="text/javascript">
         var ue = UE.getEditor('container',{
             toolbars: [

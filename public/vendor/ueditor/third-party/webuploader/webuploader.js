@@ -1745,14 +1745,14 @@
              * {
              *     title: 'Images',
              *     extensions: 'gif,jpg,jpeg,bmp,png',
-             *     mimeTypes: 'image/*'
+             *     mimeTypes: 'images/*'
              * }
              * ```
              */
             accept: null/*{
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'image/*'
+                mimeTypes: 'images/*'
             }*/
         });
     
@@ -1932,7 +1932,7 @@
     define('widgets/image',[
         'base',
         'uploader',
-        'lib/image',
+        'lib/images',
         'widgets/widget'
     ], function( Base, Uploader, Image ) {
     
@@ -1978,7 +1978,7 @@
              *     width: 110,
              *     height: 110,
              *
-             *     // 图片质量，只有type为`image/jpeg`的时候才有效。
+             *     // 图片质量，只有type为`images/jpeg`的时候才有效。
              *     quality: 70,
              *
              *     // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
@@ -1992,7 +1992,7 @@
              *
              *     // 为空的话则保留原有图片格式。
              *     // 否则强制转换成指定的类型。
-             *     type: 'image/jpeg'
+             *     type: 'images/jpeg'
              * }
              * ```
              */
@@ -2140,7 +2140,7 @@
                 file = this.request( 'get-file', file );
     
                 // 只预览图片格式。
-                if ( !opts || !~'image/jpeg,image/jpg'.indexOf( file.type ) ||
+                if ( !opts || !~'images/jpeg,images/jpg'.indexOf( file.type ) ||
                         file.size < compressSize ||
                         file._compressed ) {
                     return;
@@ -4880,7 +4880,7 @@
         //         b = dataView.getUint8(offset + i);
         //         hexData.push((b < 16 ? '0' : '') + b.toString(16));
         //     }
-        //     return 'data:image/jpeg,%' + hexData.join('%');
+        //     return 'data:images/jpeg,%' + hexData.join('%');
         // };
     
         EXIF.parseExifData = function( dataView, offset, length, data ) {
@@ -5790,7 +5790,7 @@
                     };
     
                     // 读取meta信息。
-                    if ( !me._metas && 'image/jpeg' === me.type ) {
+                    if ( !me._metas && 'images/jpeg' === me.type ) {
                         Util.parseMeta( me._blob, function( error, ret ) {
                             me._metas = ret;
                             me.owner.trigger('load');
@@ -6028,8 +6028,8 @@
                 }
     
                 /**
-                 * Detecting vertical squash in loaded image.
-                 * Fixes a bug which squash image vertically while drawing into
+                 * Detecting vertical squash in loaded images.
+                 * Fixes a bug which squash images vertically while drawing into
                  * canvas for some images.
                  */
                 function detectVerticalSquash( img, iw, ih ) {
