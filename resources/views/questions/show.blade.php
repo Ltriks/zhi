@@ -4,7 +4,7 @@
     @include('vendor.ueditor.assets')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $question->title }}
@@ -27,7 +27,21 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading question-follow">
+                        <h2>{{ $question->followers_count }}</h2>
+                        <span>Followers</span>
+                    </div>
+                    <div class="panel-body">
+                        <a href="/questions/{{$question->id}}/follow" class="btn btn-default">
+                            Follow
+                        </a>
+                        <a href="#editor" class="btn btn-primary">Answer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         {{ $question->answers_count }} Answers
@@ -50,21 +64,24 @@
                                 </div>
                             </div>
                         @endforeach
-
-                        <form action="/questions/{{ $question->id }}/answer" method="post">
-                            {!! csrf_field() !!}
-                            <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                                <script id="container" name="body" type="text/plain" style="height:120px;">
-                                    {!!  old('body') !!}
-                                </script>
-                                @if ($errors->has('body'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('body') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <button class="btn btn-success pull-right" type="submit">Answer </button>
-                        </form>
+                        @if(Auth::check())
+                                <form action="/questions/{{ $question->id }}/answer" method="post">
+                                    {!! csrf_field() !!}
+                                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                                        <script id="container" name="body" type="text/plain" style="height:120px;">
+                                            {!!  old('body') !!}
+                                        </script>
+                                        @if ($errors->has('body'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('body') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <button class="btn btn-success pull-right" type="submit">Answer </button>
+                                </form>
+                        @else
+                                <a href="{{url('login')}}" class="btn btn-success btn-block">Login&Answer</a>
+                        @endif
                     </div>
                 </div>
             </div>
