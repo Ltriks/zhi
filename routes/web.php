@@ -26,4 +26,4 @@ Route::resource('questions','QuestionController',['names' => [
 
 Route::post('questions/{question}/answer', 'AnswersController@store');
 
-Route::get('questions/{question_id}/follow', 'QuestionFollowController@follow');
+Route::get('questions/{question}/follow', 'QuestionFollowController@follow');

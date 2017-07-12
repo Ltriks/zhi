@@ -7,9 +7,18 @@ use Auth;
 
 class QuestionFollowController extends Controller
 {
-    public function follow($question_id)
+
+    /**
+     * QuestionFollowController constructor.
+     */
+    public function __construct()
     {
-        Auth::user()->follows($question_id);
+        $this->middleware('auth'); //must login
+    }
+
+    public function follow($question)
+    {
+        Auth::user()->followThis($question);
 
         return back();
     }

@@ -37,13 +37,21 @@ class User extends Authenticatable
         return $this->id == $model->user_id;
     }
 
-    public function follows($question_id)
+    public function follows()
     {
-        return Follow::create([
-            'question_id' => $question_id,
-            'user_id' => $this->id // User::follows() $id == $this->id
-        ]);
+        return $this->belongsToMany(Question::class,'user_question')->withTimestamps();
     }
+
+    public function followThis($question)
+    {
+        return $this->follows()->toggle($question);
+    }
+
+    public function followed($question)
+    {
+        return !! $this->follows()->where('question_id',$question)->count();//force !! twice ! 0->false
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $data = [
