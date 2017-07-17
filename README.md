@@ -10,3 +10,11 @@ remember https pwd:
 ```$xslt
 git config credential.helper store
 ```
+
+####Tips
+
+#####1.
+```vue
+E-20:
+const that = this
+```

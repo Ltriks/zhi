@@ -34,9 +34,10 @@
                         <span>Followers</span>
                     </div>
                     <div class="panel-body">
-                        <a href="/questions/{{$question->id}}/follow" class="btn btn-default {{ Auth::user()->followed($question->id) ? 'btn-success' :'' }}">
-                            {{ Auth::user()->followed($question->id) ? 'Followed' : 'Follow' }}
-                        </a>
+                        {{--<a href="/questions/{{$question->id}}/follow" class="btn btn-default {{ Auth::user()->followed($question->id) ? 'btn-success' :'' }}">--}}
+                            {{--{{ Auth::user()->followed($question->id) ? 'Followed' : 'Follow' }}--}}
+                        {{--</a>--}}
+                        <question-follow-button question="{{$question->id}}" user="{{Auth::id()}}"></question-follow-button>
                         <a href="#editor" class="btn btn-primary">Answer</a>
                     </div>
                 </div>
