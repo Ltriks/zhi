@@ -38,10 +38,48 @@
                             {{--{{ Auth::user()->followed($question->id) ? 'Followed' : 'Follow' }}--}}
                         {{--</a>--}}
                         <question-follow-button question="{{$question->id}}"></question-follow-button>
-                        <a href="#editor" class="btn btn-primary">Answer</a>
+                        <a href="#editor" class="btn btn-primary pull-right">Answer</a>
                     </div>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading question-follow">
+                        <h5>About Author</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img width="36" src="{{ $question->user->avatar }}" alt="{{ $question->user->name }}">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <a href="">
+                                    {{ $question->user->name }}
+                                </a>
+                            </div>
+                            <div class="user-statics">
+                                <div class="statics-item text-center">
+                                    <div class="statics-text">Questions</div>
+                                    <div class="statics-count">{{ $question->user->questions_count }}</div>
+                                </div>
+                                <div class="statics-item text-center">
+                                    <div class="statics-text">Answers</div>
+                                    <div class="statics-count">{{ $question->user->answers_count }}</div>
+                                </div>
+                                <div class="statics-item text-center">
+                                    <div class="statics-text">Followers</div>
+                                    <div class="statics-count">{{ $question->user->followers_count }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <question-follow-button question="{{$question->id}}"></question-follow-button>
+                        <a href="#editor" class="btn btn-default  pull-right">Send Messages</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-8 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -69,7 +107,8 @@
                                 <form action="/questions/{{ $question->id }}/answer" method="post">
                                     {!! csrf_field() !!}
                                     <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                                        <script id="container" name="body" type="text/plain" style="height:120px;">
+                                        {{--<script id="container" name="body" type="text/plain" style="height: 120px;">--}}
+                                        <script id="container" name="body" type="text/plain">
                                             {!!  old('body') !!}
                                         </script>
                                         @if ($errors->has('body'))
