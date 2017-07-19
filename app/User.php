@@ -52,11 +52,29 @@ class User extends Authenticatable
         return !! $this->follows()->where('question_id',$question)->count();//force !! twice ! 0->false
     }
 
+    /**
+     * stand by Author tangle (author's all followers)
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function followers()
     {
         return $this->belongsToMany(self::class,'followers','follower_id','followed_id')->withTimestamps();
     }
 
+    /**
+     * stand by loggin user(user's all followed authors)
+     * A little hard to understand what's diff from upper func
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followersUser()
+    {
+        return $this->belongsToMany(self::class,'followers','followed_id','follower_id')->withTimestamps();
+    }
+
+    public function followThisUser($user)
+    {
+        return $this->followers()->toggle($user); //NOT very clear yet.
+    }
     public function sendPasswordResetNotification($token)
     {
         $data = [

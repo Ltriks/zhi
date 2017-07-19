@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <question-follow-button question="{{$question->id}}"></question-follow-button>
+                        <user-follow-button user="{{$question->user_id}}"></user-follow-button>
                         <a href="#editor" class="btn btn-default  pull-right">Send Messages</a>
                     </div>
                 </div>
