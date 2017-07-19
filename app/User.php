@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     /**
      * stand by loggin user(user's all followed authors)
-     * A little hard to understand what's diff from upper func
+     * BelongsToMany self::class A little hard to understand what's diff from upper func
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function followersUser()
@@ -75,6 +75,7 @@ class User extends Authenticatable
     {
         return $this->followers()->toggle($user); //NOT very clear yet.
     }
+
     public function sendPasswordResetNotification($token)
     {
         $data = [
