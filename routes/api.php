@@ -47,4 +47,4 @@ Route::post('/question/follower',function (Request $request) {
  })->middleware('auth:api');
 
  Route::get('/user/followers/{id}','FollowersController@index');
- Route::post('/user/follow','FollowersController@follow');
+ Route::post('/user/follow','FollowersController@follow')->middleware('auth:api');
