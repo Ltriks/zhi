@@ -76,18 +76,9 @@ class RegisterController extends Controller
         return $user;
     }
 
-    protected function sendVerifyEmailTo($user)
+    private function sendVerifyEmailTo($user)
     {
-        $data = [
-            'url' => route('email.verify',['token' => $user->confirmation_token]),
-            'name' => $user->name,
-        ];
-        $template = new SendCloudTemplate('zhihu_app_register', $data);
-
-        Mail::raw($template, function ($message) use ($user){
-            $message->from('lqtriks@gmail.com', 'zhihu');
-            $message->to($user->email);
-        });
+        (new UserMailer())->emailVerify($user);
     }
 
 }
