@@ -53,6 +53,15 @@ class User extends Authenticatable
         return !! $this->follows()->where('question_id',$question)->count();//force !! twice ! 0->false
     }
 
+    public function votes()
+    {
+        return $this->belongsToMany(Answer::class, 'votes')->withTimestamps();
+    }
+
+    public function voteFor($answer)
+    {
+        return $this->votes()->toggle($answer);
+    }
     /**
      * stand by Author tangle (author's all followers)
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -80,5 +89,10 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         (new UserMailer())->passwordReset($token, $this->email);
+    }
+
+    public function hasVotedFor($answer_id)
+    {
+        return !! $this->votes()->where('answer_id',$answer_id)->count();
     }
 }
