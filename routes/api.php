@@ -52,3 +52,6 @@ Route::post('/question/follower',function (Request $request) {
  Route::post('/answer/{id}/votes/users','VotesController@users');
  Route::post('/answer/votes','VotesController@vote');
 
+ Route::post('/message/store','MessageController@store');
+
+
