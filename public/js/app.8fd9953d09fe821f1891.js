@@ -1605,6 +1605,114 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Comments.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['type', 'model', 'count'],
+    data: function data() {
+        return {
+            body: '',
+            comments: [],
+            newComment: {
+                user: {
+                    name: Zhihu.name,
+                    avatar: Zhihu.avatar
+                },
+                body: ''
+            }
+        };
+    },
+
+    computed: {
+        dialog: function dialog() {
+            return 'comments-dialog-' + this.type + '-' + this.model;
+        },
+        dialogId: function dialogId() {
+            return '#' + this.dialog;
+        },
+        text: function text() {
+            return this.count > 0 ? this.count + ' comments' : this.count + ' comment';
+            //                console.log('text entered.')
+        }
+    },
+    methods: {
+        store: function store() {
+            var that = this;
+            axios.post('/api/comment', {
+                'type': this.type,
+                'model': this.model,
+                'body': this.body
+            }).then(function (response) {
+                that.newComment.body = response.data.body;
+                that.comments.push(that.newComment);
+                that.body = '';
+                that.count++;
+            });
+        },
+        showCommentsForm: function showCommentsForm() {
+            this.getComments();
+            var that = this;
+            $(that.dialogId).modal('show');
+        },
+        getComments: function getComments() {
+            axios.get('/api/' + this.type + '/' + this.model + '/comments').then(function (response) {
+                that.comments = response.data;
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Example.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1743,6 +1851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 'body': this.body
             }).then(function (response) {
                 that.status = response.data.status;
+                that.body = '';
                 setTimeout(function () {
                     $('#modal-send-message').modal('hide');
                 }, 2000);
@@ -31894,6 +32003,112 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5be9b990\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Comments.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('button', {
+    staticClass: "button is-naked delete-button",
+    domProps: {
+      "textContent": _vm._s(_vm.text)
+    },
+    on: {
+      "click": _vm.showCommentsForm
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": _vm.dialog,
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog"
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "modal-body"
+  }, [(_vm.comments.length > 0) ? _c('div', _vm._l((_vm.comments), function(comment) {
+    return _c('div', {
+      staticClass: "media"
+    }, [_c('div', {
+      staticClass: "media-left"
+    }, [_c('a', {
+      attrs: {
+        "href": "#"
+      }
+    }, [_c('img', {
+      staticClass: "media-object",
+      attrs: {
+        "width": "24",
+        "src": comment.user.avatar
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "media-body"
+    }, [_c('h4', {
+      staticClass: "media-heading"
+    }, [_vm._v(_vm._s(comment.user.name))]), _vm._v("\n                                " + _vm._s(comment.body) + "\n                            ")])])
+  })) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.body),
+      expression: "body"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text"
+    },
+    domProps: {
+      "value": (_vm.body)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.body = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.store
+    }
+  }, [_vm._v("\n                        comment\n                    ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_vm._v("Close")])])])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button ",
+      "data-dismiss": "modal",
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("\n                        Comments List\n                    ")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5be9b990", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7d2aa36a\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/SendMessage.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41820,6 +42035,7 @@ Vue.component('question-follow-button', __webpack_require__("./resources/assets/
 Vue.component('user-follow-button', __webpack_require__("./resources/assets/js/components/UserFollowButton.vue"));
 Vue.component('user-vote-button', __webpack_require__("./resources/assets/js/components/UserVoteButton.vue"));
 Vue.component('send-message', __webpack_require__("./resources/assets/js/components/SendMessage.vue"));
+Vue.component('comments', __webpack_require__("./resources/assets/js/components/Comments.vue"));
 
 var app = new Vue({
   el: '#app'
@@ -41885,6 +42101,41 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/Comments.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")(
+  /* script */
+  __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Comments.vue"),
+  /* template */
+  __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5be9b990\"}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Comments.vue"),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/zhihu-app/resources/assets/js/components/Comments.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Comments.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5be9b990", Component.options)
+  } else {
+    hotAPI.reload("data-v-5be9b990", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 

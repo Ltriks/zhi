@@ -23,4 +23,5 @@ class Answer extends Model
     {
         return $this->morphMany('App\Comment','commentable');
     }
+
 }
