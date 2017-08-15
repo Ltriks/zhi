@@ -92,6 +92,7 @@
                 $(that.dialogId).modal('show')
             },
             getComments() {
+                const that = this
                 axios.get('/api/' + this.type + '/' + this.model + '/comments').then(function(response) {
                     that.comments = response.data
                 })
