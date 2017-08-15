@@ -13,50 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('/topics',function (Request $request) {
-    $topic = \App\Topic::select(['id','name'])
-        ->where('name' ,'like','%'.$request->query('q').'%')
-        ->get();
-    return $topic;
-})->middleware('api') ;
-
-Route::post('/question/follower',function (Request $request) {
-    $user = Auth::guard('api')->user();
-    $followed = $user->followed($request->get('question'));
-    if($followed) {
-        return response()->json(['followed' => true]);
-    }
-    return response()->json(['followed' => false]);
-})->middleware('auth:api');
-
-
- Route::post('/question/follow',function (Request $request) {
-     $user = Auth::guard('api')->user();
-     $question = \App\Question::find($request->get('question'));
-     $followed = $user->followThis($request->get('question'));
-     if(count($followed['detached']) > 0) {
-         $question->decrement('followers_count');
-         return response()->json(['followed' => false]);
-     }
-
-     $question->increment('followers_count');
-     return response()->json(['followed' => true]);
- })->middleware('auth:api');
-
+ Route::get('/topics','TopicsController@index')->middleware('api');
  Route::get('/user/followers/{id}','FollowersController@index');
- Route::post('/user/follow','FollowersController@follow')->middleware('auth:api');
-
- Route::post('/answer/{id}/votes/users','VotesController@users');
- Route::post('/answer/votes','VotesController@vote');
-
- Route::post('/message/store','MessageController@store');
-
  Route::get('/answer/{id}/comments','CommentsController@answer');
  Route::get('/question/{id}/comments','CommentsController@question');
 
+ Route::post('/question/follower','QuestionFollowController@follower')->middleware('auth:api');
+ Route::post('/question/follow','QuestionFollowController@followThisQuestion')->middleware('auth:api');
+ Route::post('/user/follow','FollowersController@follow')->middleware('auth:api');
+ Route::post('/answer/{id}/votes/users','VotesController@users');
+ Route::post('/answer/votes','VotesController@vote');
+ Route::post('/message/store','MessageController@store');
  Route::post('comment','CommentsController@store');
 
 

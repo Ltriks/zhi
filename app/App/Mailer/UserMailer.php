@@ -10,7 +10,7 @@ class UserMailer extends Mailer
     {
         $data = [
             'url' => 'http://zhi.trick.dev',
-            'name' => Auth::guard('api')->user()->name,
+            'name' => user('api')->name,
         ];
         $this->sendTo('zhihu_app_new_user_follow', $email, $data);
     }
