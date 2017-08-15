@@ -1,12 +1,12 @@
 <?php
 namespace App\Repositories;
 
-use App\Message;
+use App\Comment;
 
-class MessageRepository
+class CommentRepository
 {
     public function create(array $attributes)
     {
-        return Message::create($attributes);
+        return Comment::create($attributes);
     }
 }
