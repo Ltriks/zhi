@@ -3,6 +3,7 @@
 namespace App\Mailer;
 
 use Mail;
+use App\User;
 
 class UserMailer extends Mailer
 {

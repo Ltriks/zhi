@@ -24,11 +24,14 @@
                                 <button class="button is-naked delete-button">Del</button>
                             </form>
                         @endif
-                        <comments type="question" model="{{$question->id}}" count="{{$question->comments()->count()}}"></comments>
+                        <comments type="question"
+                                model="{{$question->id}}"
+                                count="{{$question->comments()->count()}}">
+                        </comments>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 ">
                 <div class="panel panel-default">
                     <div class="panel-heading question-follow">
                         <h2>{{ $question->followers_count }}</h2>
@@ -40,6 +43,57 @@
                         {{--</a>--}}
                         <question-follow-button question="{{$question->id}}"></question-follow-button>
                         <a href="#editor" class="btn btn-primary pull-right">Answer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{ $question->answers_count }} Answers
+                    </div>
+                    <div class="panel-body">
+                        @foreach($question->answers as $answer)
+                            <div class="media">
+                                <div class="media-left">
+                                    {{--<a href="">--}}
+                                        {{--<img width="36" src="{{ $answer->user->avatar }}" >--}}
+                                    {{--</a>--}}
+                                    <user-vote-button answer="{{$answer->id}}" count="{{$answer->votes_count}}"></user-vote-button>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading">
+                                        <a href="/questions/{{ $answer->user->name }}" >
+                                            {{ $answer->user->name }}
+                                        </a>
+                                    </h4>
+                                    {!! $answer->body !!}
+                                </div>
+                                <comments type="answer"
+                                          model="{{$answer->id}}"
+                                          count="{{$answer->comments()->count()}}">
+                                </comments>
+
+                            </div>
+                        @endforeach
+                        @if(Auth::check())
+                                <form action="/questions/{{ $question->id }}/answer" method="post">
+                                    {!! csrf_field() !!}
+                                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
+                                        {{--<script id="container" name="body" type="text/plain" style="height: 120px;">--}}
+                                        <script id="container" name="body" type="text/plain">
+                                            {!!  old('body') !!}
+                                        </script>
+                                        @if ($errors->has('body'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('body') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <button class="btn btn-success pull-right" type="submit">Answer </button>
+                                </form>
+                        @else
+                                <a href="{{url('login')}}" class="btn btn-success btn-block">Login&Answer</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -77,55 +131,6 @@
                         </div>
                         <user-follow-button user="{{$question->user_id}}"></user-follow-button>
                         <send-message user="{{$question->user_id}}"></send-message>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {{ $question->answers_count }} Answers
-                    </div>
-                    <div class="panel-body">
-                        @foreach($question->answers as $answer)
-                            <div class="media">
-                                <div class="media-left">
-                                    {{--<a href="">--}}
-                                        {{--<img width="36" src="{{ $answer->user->avatar }}" >--}}
-                                    {{--</a>--}}
-                                    <user-vote-button answer="{{$answer->id}}" count="{{$answer->votes_count}}"></user-vote-button>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading">
-                                        <a href="/questions/{{ $answer->user->name }}" >
-                                            {{ $answer->user->name }}
-                                        </a>
-                                    </h4>
-                                    {!! $answer->body !!}
-                                </div>
-                                <comments type="answer" model="{{$answer->id}}" count="{{$answer->comments()->count()}}"></comments>
-
-                            </div>
-                        @endforeach
-                        @if(Auth::check())
-                                <form action="/questions/{{ $question->id }}/answer" method="post">
-                                    {!! csrf_field() !!}
-                                    <div class="form-group{{ $errors->has('body') ? ' has-error' : '' }}">
-                                        {{--<script id="container" name="body" type="text/plain" style="height: 120px;">--}}
-                                        <script id="container" name="body" type="text/plain">
-                                            {!!  old('body') !!}
-                                        </script>
-                                        @if ($errors->has('body'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('body') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                    <button class="btn btn-success pull-right" type="submit">Answer </button>
-                                </form>
-                        @else
-                                <a href="{{url('login')}}" class="btn btn-success btn-block">Login&Answer</a>
-                        @endif
                     </div>
                 </div>
             </div>
