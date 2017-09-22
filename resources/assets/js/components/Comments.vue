@@ -50,13 +50,7 @@
             return {
                 body:'',
                 comments:[],
-                newComment:{
-                    user:{
-                        name:Zhihu.name,
-                        avatar:Zhihu.avatar
-                    },
-                    body:''
-                }
+ 
             }
         },
         computed:{
@@ -80,8 +74,14 @@
                     'model':this.model,
                     'body':this.body,
                 }).then(function(response) {
-                    that.newComment.body = response.data.body
-                    that.comments.push(that.newComment)
+                    let comment = {
+                        user:{
+                            name:Zhihu.name,
+                            avatar:Zhihu.avatar
+                        },
+                        body:response.data.body
+                    }
+                    that.comments.push(comment)
                     that.body = ''
                     that.count ++
                 })
