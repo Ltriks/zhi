@@ -61,6 +61,6 @@ $up = new Uploader($fieldName, $config, $base64);
  *     "size" => "",           //文件大小
  * )
  */
-dd($up->getFileInfo());exit;
+
 /* 返回数据 */
 return json_encode($up->getFileInfo());

@@ -43,10 +43,10 @@ var Chart = Highcharts.Chart,
 	// Add language
 	extend(defaultOptions.lang, {
 		printChart: 'Print chart',
-		downloadPNG: 'Download PNG images',
-		downloadJPEG: 'Download JPEG images',
+		downloadPNG: 'Download PNG image',
+		downloadJPEG: 'Download JPEG image',
 		downloadPDF: 'Download PDF document',
-		downloadSVG: 'Download SVG vector images',
+		downloadSVG: 'Download SVG vector image',
 		contextButtonTitle: 'Chart context menu'
 	});
 
@@ -95,7 +95,7 @@ defaultOptions.navigation = {
 defaultOptions.exporting = {
 	//enabled: true,
 	//filename: 'chart',
-	type: 'images/png',
+	type: 'image/png',
 	url: 'http://export.highcharts.com/',
 	//width: undefined,
 	//scale: 2
@@ -121,7 +121,7 @@ defaultOptions.exporting = {
 				textKey: 'downloadJPEG',
 				onclick: function () {
 					this.exportChart({
-						type: 'images/jpeg'
+						type: 'image/jpeg'
 					});
 				}
 			}, {
@@ -135,7 +135,7 @@ defaultOptions.exporting = {
 				textKey: 'downloadSVG',
 				onclick: function () {
 					this.exportChart({
-						type: 'images/svg+xml'
+						type: 'image/svg+xml'
 					});
 				}
 			}
@@ -305,7 +305,7 @@ extend(Chart.prototype, {
 			.replace(/&shy;/g,  '\u00AD') // soft hyphen
 
 			// IE specific
-			.replace(/<IMG /g, '<images ')
+			.replace(/<IMG /g, '<image ')
 			.replace(/height=([^" ]+)/g, 'height="$1"')
 			.replace(/width=([^" ]+)/g, 'width="$1"')
 			.replace(/hc-svg-href="([^"]+)">/g, 'xlink:href="$1"/>')

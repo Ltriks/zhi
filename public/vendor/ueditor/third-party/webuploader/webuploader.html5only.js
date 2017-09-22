@@ -1745,14 +1745,14 @@
              * {
              *     title: 'Images',
              *     extensions: 'gif,jpg,jpeg,bmp,png',
-             *     mimeTypes: 'images/*'
+             *     mimeTypes: 'image/*'
              * }
              * ```
              */
             accept: null/*{
                 title: 'Images',
                 extensions: 'gif,jpg,jpeg,bmp,png',
-                mimeTypes: 'images/*'
+                mimeTypes: 'image/*'
             }*/
         });
     
@@ -1978,7 +1978,7 @@
              *     width: 110,
              *     height: 110,
              *
-             *     // 图片质量，只有type为`images/jpeg`的时候才有效。
+             *     // 图片质量，只有type为`image/jpeg`的时候才有效。
              *     quality: 70,
              *
              *     // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
@@ -1992,7 +1992,7 @@
              *
              *     // 为空的话则保留原有图片格式。
              *     // 否则强制转换成指定的类型。
-             *     type: 'images/jpeg'
+             *     type: 'image/jpeg'
              * }
              * ```
              */
@@ -2007,7 +2007,7 @@
                 // 为空的话则保留原有图片格式。
                 // 否则强制转换成指定的类型。
                 // IE 8下面 base64 大小不能超过 32K 否则预览失败，而非 jpeg 编码的图片很可
-                // 能会超过 32k, 所以这里设置成预览的时候都是 images/jpeg
+                // 能会超过 32k, 所以这里设置成预览的时候都是 image/jpeg
                 type: 'image/jpeg'
             },
     
@@ -2024,7 +2024,7 @@
              *     width: 1600,
              *     height: 1600,
              *
-             *     // 图片质量，只有type为`images/jpeg`的时候才有效。
+             *     // 图片质量，只有type为`image/jpeg`的时候才有效。
              *     quality: 90,
              *
              *     // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
@@ -2140,7 +2140,7 @@
                 file = this.request( 'get-file', file );
     
                 // 只预览图片格式。
-                if ( !opts || !~'images/jpeg,images/jpg'.indexOf( file.type ) ||
+                if ( !opts || !~'image/jpeg,image/jpg'.indexOf( file.type ) ||
                         file.size < compressSize ||
                         file._compressed ) {
                     return;
@@ -4880,7 +4880,7 @@
         //         b = dataView.getUint8(offset + i);
         //         hexData.push((b < 16 ? '0' : '') + b.toString(16));
         //     }
-        //     return 'data:images/jpeg,%' + hexData.join('%');
+        //     return 'data:image/jpeg,%' + hexData.join('%');
         // };
     
         EXIF.parseExifData = function( dataView, offset, length, data ) {
@@ -4929,7 +4929,7 @@
             dirOffset = dataView.getUint32( tiffOffset + 4, littleEndian );
             // Create the exif object to store the tags:
             data.exif = new EXIF.ExifMap();
-            // Parse the tags of the main images directory and retrieve the
+            // Parse the tags of the main image directory and retrieve the
             // offset to the next directory, usually the thumbnail directory:
             dirOffset = EXIF.parseExifTags( dataView, tiffOffset,
                     tiffOffset + dirOffset, littleEndian, data );
@@ -5215,7 +5215,7 @@
             },
     
             // https://github.com/stomita/ios-imagefile-megapixel/
-            // blob/master/src/megapix-images.js
+            // blob/master/src/megapix-image.js
             _renderImageToCanvas: (function() {
     
                 // 如果不是ios, 不需要这么复杂！
@@ -5226,8 +5226,8 @@
                 }
     
                 /**
-                 * Detecting vertical squash in loaded images.
-                 * Fixes a bug which squash images vertically while drawing into
+                 * Detecting vertical squash in loaded image.
+                 * Fixes a bug which squash image vertically while drawing into
                  * canvas for some images.
                  */
                 function detectVerticalSquash( img, iw, ih ) {
@@ -5244,7 +5244,7 @@
                     ctx.drawImage( img, 0, 0 );
                     data = ctx.getImageData( 0, 0, 1, ih ).data;
     
-                    // search images edge pixel position in case
+                    // search image edge pixel position in case
                     // it is squashed vertically.
                     while ( py > sy ) {
                         alpha = data[ (py - 1) * 4 + 3 ];
@@ -5278,7 +5278,7 @@
                 }
     
                 /**
-                 * Detect subsampling in loaded images.
+                 * Detect subsampling in loaded image.
                  * In iOS, larger images than 2M pixels may be
                  * subsampled in rendering.
                  */
@@ -5287,17 +5287,17 @@
                         ih = img.naturalHeight,
                         canvas, ctx;
     
-                    // subsampling may happen overmegapixel images
+                    // subsampling may happen overmegapixel image
                     if ( iw * ih > 1024 * 1024 ) {
                         canvas = document.createElement('canvas');
                         canvas.width = canvas.height = 1;
                         ctx = canvas.getContext('2d');
                         ctx.drawImage( img, -iw + 1, 0 );
     
-                        // subsampled images becomes half smaller in rendering size.
-                        // check alpha channel value to confirm images is covering
+                        // subsampled image becomes half smaller in rendering size.
+                        // check alpha channel value to confirm image is covering
                         // edge pixel or not. if alpha value is 0
-                        // images is not covering, hence subsampled.
+                        // image is not covering, hence subsampled.
                         return ctx.getImageData( 0, 0, 1, 1 ).data[ 3 ] === 0;
                     } else {
                         return false;
@@ -5532,7 +5532,7 @@
         'widgets/filednd',
         'widgets/filepaste',
         'widgets/filepicker',
-        'widgets/images',
+        'widgets/image',
         'widgets/queue',
         'widgets/runtime',
         'widgets/upload',

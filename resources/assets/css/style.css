@@ -57,3 +57,6 @@ a.topic:hover{
 .message-list {
     margin-top: 80px;
 }
+.media.unread {
+    background-color: #fff9ca;
+}

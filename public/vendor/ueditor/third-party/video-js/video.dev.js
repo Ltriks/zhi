@@ -3747,14 +3747,14 @@ vjs.Player.prototype.loop = function(value){
 };
 
 /**
- * the url of the poster images source
+ * the url of the poster image source
  * @type {String}
  * @private
  */
 vjs.Player.prototype.poster_;
 
 /**
- * get or set the poster images source url
+ * get or set the poster image source url
  *
  * ##### EXAMPLE:
  *
@@ -3764,7 +3764,7 @@ vjs.Player.prototype.poster_;
  *     // setting
  *     myPlayer.poster('http://example.com/myImage.jpg');
  *
- * @param  {String=} [src] Poster images source URL
+ * @param  {String=} [src] Poster image source URL
  * @return {String} poster URL when getting
  * @return {vjs.Player} self when setting
  */
@@ -4767,7 +4767,7 @@ vjs.VolumeMenuButton.prototype.update = vjs.MuteToggle.prototype.update;
 /* Poster Image
 ================================================================================ */
 /**
- * The component that handles showing the poster images.
+ * The component that handles showing the poster image.
  *
  * @param {vjs.Player|Object} player
  * @param {Object=} options

@@ -304,7 +304,7 @@ UE.I18N['en'] = {
         'errorServerUpload':'Server Result Error.',
         'remoteLockError':"Cannot Lock the Proportion between width and height",
         'numError':"Please enter the correct Num. e.g 123,400",
-        'imageUrlError':"The images format may be wrong!",
+        'imageUrlError':"The image format may be wrong!",
         'imageLoadError':"Error,please check the network or URL！",
         'searchRemind':"Enter the search keyword!",
         'searchLoading':"Image is loading,please wait...",
