@@ -42482,8 +42482,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('my-upload', {
     attrs: {
       "field": "img",
-      "width": 300,
-      "height": 300,
+      "width": 100,
+      "height": 100,
       "url": "/avatar",
       "params": _vm.params,
       "headers": _vm.headers,

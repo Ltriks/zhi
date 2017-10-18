@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Overtrue\LaravelUEditor\UEditorServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Overtrue\LaravelFilesystem\Qiniu\QiniuStorageServiceProvider::class,
     ],
 
     /*
