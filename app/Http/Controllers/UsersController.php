@@ -10,4 +10,16 @@ class UsersController extends Controller
     {
     	return view('users.avatar');
     }
+
+    public function changeAvatar(Request $request)
+    {
+    	$file = $request->file('img');
+    	$filename = md5(time().user()->id). '.' .$file->getClientoriginalExtension();
+    	$file->move(public_path('avatars'), $filename);
+
+    	user()->avatar = 'avatars/'.$filename;
+    	user()->save();
+
+    	return ['url' => user()->avatar];
+    }
 }
