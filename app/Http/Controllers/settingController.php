@@ -12,11 +12,7 @@ class settingController extends Controller
 	}
 	public function store(Request $request)
 	{
-		dd((user()->settings));// $casts没生效 无法直接转化成数组 USER $casts
-		$setting = array_merge(json_decode(user()->settings,true), array_only($request->all(),['city','bio']));
-
-		user()->update(['settings' => $settings]);
-
+		user()->settings()->merge($request->all());
 		return back();
 	}
 }

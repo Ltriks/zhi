@@ -32,6 +32,11 @@ class User extends Authenticatable
         'settings' => 'array',
     ];
 
+    public function settings()
+    {
+        return new Setting($this);
+    }
+
     public function answers()
     {
         return $this->hasMany(Answer::class);
